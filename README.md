@@ -1,3 +1,10 @@
+# Introduction
+Managing dependencies is a crucial part of any complex project. Handling this manually can be tedious and time-consuming, leaving less room to focus on other essential aspects of development.
+
+This is where [**Spring Boot starters**](https://github.com/spring-projects/spring-boot/blob/main/spring-boot-project/spring-boot-starters/README.adoc) come into play. These are pre-configured dependency descriptors designed to simplify dependency management. By including a starter POM in your project, you can effortlessly bring in all the necessary Spring and related technologies, saving you from the hassle of searching through documentation or copying multiple dependency definitions.
+
+Spring Boot offers starters for popular technologies to streamline your development process. Though starter for Spark is not available yet.
+
 # Spring Boot Starter Spark
 The Spring Boot Starter for Spark is a set of convenient dependency descriptors that you can include in your Spring boot application  
 to have all required Spark dependencies and [**`SparkSession`**](https://spark.apache.org/docs/latest/api/java/org/apache/spark/sql/SparkSession.html) bean auto-configured with spark configurations support in spring boot `yml` or `properties` file.
@@ -13,7 +20,7 @@ It specifies the following versions:
 * Bundles spark dependencies compatible with Spring boot 3+.   
 * Provides auto-configured [**`SparkSession`**](https://spark.apache.org/docs/latest/api/java/org/apache/spark/sql/SparkSession.html) bean which can be customized in any manner.
 * Exposes all Spark configurations as Spring boot environment properties.
-* Enables auto-completion for Spark configuration properties in Spring boot `yml` and `properties` files in IDEs such as IntelliJ, Eclipse etc. Find details at [**additional-spring-configuration-metadata.json**](src/main/resources/META-INF/additional-spring-configuration-metadata.json)
+* Enables auto-completion assistance for Spark configuration properties in Spring boot `yml` and `properties` files in IDEs such as IntelliJ, Eclipse etc. Find details at [**additional-spring-configuration-metadata.json**](src/main/resources/META-INF/additional-spring-configuration-metadata.json)
 
 ## Usage
 Add the following dependency to your `pom.xml`:
@@ -31,6 +38,7 @@ Define the following properties in `pom.xml`:
     <jersey.version>2.36</jersey.version>
 </properties>
 ```
+
 > [!IMPORTANT]
 Spring boot parent pom provides `jakarta-servlet.version` and `jersey.version` versions.
 These must be overridden in your pom as mentioned above otherwise you will get exception java.lang.ClassNotFoundException: javax.servlet.http.HttpServlet.
@@ -38,12 +46,8 @@ These must be overridden in your pom as mentioned above otherwise you will get e
 <dependency>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-spark</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${spring-boot-starter-spark.version}</version>
 </dependency>
-```
-or include it in your `build.gradle`:
-```gradle
-implementation 'org.springframework.boot:spring-boot-starter-spark:0.0.1-SNAPSHOT'
 ```
 
 **See example usage in a [Spark Spring could task](https://github.com/officiallysingh/spark-try-me)**

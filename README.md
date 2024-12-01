@@ -11,9 +11,9 @@ It specifies the following versions:
 
 ## Features
 * Bundles spark dependencies compatible with Spring boot 3+.   
-* Provides auto-configured [**`SparkSession`**](https://spark.apache.org/docs/latest/api/java/org/apache/spark/sql/SparkSession.html) bean with can be customized in any manner.
+* Provides auto-configured [**`SparkSession`**](https://spark.apache.org/docs/latest/api/java/org/apache/spark/sql/SparkSession.html) bean which can be customized in any manner.
 * Exposes all Spark configurations as Spring boot environment properties.
-* Enables auto-completion for Spark configuration properties in Spring boot `yml` and `properties` files in IDEs such as IntelliJ, Eclipse etc.
+* Enables auto-completion for Spark configuration properties in Spring boot `yml` and `properties` files in IDEs such as IntelliJ, Eclipse etc. Find details at [**additional-spring-configuration-metadata.json**](src/main/resources/META-INF/additional-spring-configuration-metadata.json)
 
 ## Usage
 Add the following dependency to your `pom.xml`:
@@ -192,4 +192,4 @@ Please give me a :star: if you find it helpful.
 
 ## References
 * To know about spark Refer to [**Spark Documentation**](https://spark.apache.org/docs/3.5.3/).
-* Find details of all possible spark configurations at [**Spark Configuration Documentation**](https://spark.apache.org/docs/3.5.3/configuration.html)
+* Find all spark configurations details at [**Spark Configuration Documentation**](https://spark.apache.org/docs/3.5.3/configuration.html)

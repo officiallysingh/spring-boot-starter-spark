@@ -81,7 +81,8 @@ For details refer to [**`SparkAutoConfiguration`**](src/main/java/com/ksoot/spar
 But if you want to override it, you can define your own `SparkConf` class bean in your application.
 
 ## Customizations
-### Using [**`SparkSessionBuilderCustomizer`**](src/main/java/com/ksoot/spark/springframework/boot/autoconfigure/SparkSessionBuilderCustomizer.java) you can customize `SparkSession.Builder` by adding a beans of type `SparkSessionBuilderCustomizer` to your application.
+### Using [**`SparkSessionBuilderCustomizer`**](src/main/java/com/ksoot/spark/springframework/boot/autoconfigure/SparkSessionBuilderCustomizer.java) 
+You can customize `SparkSession.Builder` by adding a beans of type `SparkSessionBuilderCustomizer` to your application.
 
 ```java
 @Bean
@@ -89,7 +90,8 @@ public SparkSessionBuilderCustomizer enableHiveSupportCustomizer() {
     return SparkSession.Builder::enableHiveSupport;
 }
 ```
-###  Using [**`SparkSessionCustomizer`**](src/main/java/com/ksoot/spark/springframework/boot/autoconfigure/SparkSessionCustomizer.java) you can customize [**`SparkSession`**](https://spark.apache.org/docs/latest/api/java/org/apache/spark/sql/SparkSession.html) by adding beans of type `SparkSessionCustomizer` to your application.
+###  Using [**`SparkSessionCustomizer`**](src/main/java/com/ksoot/spark/springframework/boot/autoconfigure/SparkSessionCustomizer.java) 
+you can customize [**`SparkSession`**](https://spark.apache.org/docs/latest/api/java/org/apache/spark/sql/SparkSession.html) by adding beans of type `SparkSessionCustomizer` to your application.
 Following is an example to register User Defined Function in [**`SparkSession`**](https://spark.apache.org/docs/latest/api/java/org/apache/spark/sql/SparkSession.html):
 
 #### Defining UDF

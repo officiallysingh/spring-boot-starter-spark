@@ -247,3 +247,4 @@ Please give me a :star: if you find it helpful.
 ## References
 * To know about spark Refer to [**Spark Documentation**](https://spark.apache.org/docs/3.5.3/).
 * Find all spark configurations details at [**Spark Configuration Documentation**](https://spark.apache.org/docs/3.5.3/configuration.html)
+* [**How to create new Spring boot starter**](https://nortal.com/insights/starters-connecting-infrastructure)

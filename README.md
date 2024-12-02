@@ -32,7 +32,7 @@ Define the following properties in `pom.xml`:
     <java.version>17</java.version>
     <spring-boot.version>3.4.0</spring-boot.version>
 
-    <spring-boot-starter-spark.version>0.0.1-SNAPSHOT</spring-boot-starter-spark.version>
+    <spring-boot-starter-spark.version>1.0</spring-boot-starter-spark.version>
     <!-- The Following two versions must be specified otherwise you will get exception java.lang.ClassNotFoundException: javax.servlet.http.HttpServlet-->
     <jakarta-servlet.version>4.0.3</jakarta-servlet.version>
     <jersey.version>2.36</jersey.version>
@@ -49,6 +49,10 @@ These must be overridden in your pom as mentioned above otherwise you will get e
     <version>${spring-boot-starter-spark.version}</version>
 </dependency>
 ```
+
+> [!NOTE]
+`spring-boot-starter-spark` jar contains spark core, spark sql and spark mllib dependencies. 
+You can exclude spark mllib if you don't need it.
 
 **See example usage in a [Spark Spring could task](https://github.com/officiallysingh/spark-try-me)**
 

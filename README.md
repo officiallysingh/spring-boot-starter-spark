@@ -10,7 +10,7 @@ These are pre-configured dependency descriptors designed to simplify dependency 
 Spring Boot offers starters for popular technologies to streamline your development process. Though starter for Spark is not available yet.
 
 **The Spring Boot Starter for Spark is a set of convenient dependency descriptors that you can include in your Spring boot application 
-to have all required Spark dependencies and [**`SparkSession`**](https://spark.apache.org/docs/latest/api/java/org/apache/spark/sql/SparkSession.html) bean auto-configured with spark configurations support in spring boot `yml` or `properties` file.**
+to have all required Spark dependencies and [**`SparkSession`**](https://spark.apache.org/docs/latest/api/java/org/apache/spark/sql/SparkSession.html) bean auto-configured with spark configurations support in spring boot `yml` or `properties` file in your favourite IDE.**
 
 ## Dependency versions
 It specifies the following versions:

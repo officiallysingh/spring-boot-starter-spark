@@ -9,8 +9,8 @@ This is where [**Spring Boot starters**](https://github.com/spring-projects/spri
 These are pre-configured dependency descriptors designed to simplify dependency management. By including a starter POM in your project, you can effortlessly bring in all the necessary Spring and related technologies, saving you from the hassle of searching through documentation or copying multiple dependency definitions.
 Spring Boot offers starters for popular technologies to streamline your development process. Though starter for Spark is not available yet.
 
-The Spring Boot Starter for Spark is a set of convenient dependency descriptors that you can include in your Spring boot application 
-to have all required Spark dependencies and [**`SparkSession`**](https://spark.apache.org/docs/latest/api/java/org/apache/spark/sql/SparkSession.html) bean auto-configured with spark configurations support in spring boot `yml` or `properties` file.
+**The Spring Boot Starter for Spark is a set of convenient dependency descriptors that you can include in your Spring boot application 
+to have all required Spark dependencies and [**`SparkSession`**](https://spark.apache.org/docs/latest/api/java/org/apache/spark/sql/SparkSession.html) bean auto-configured with spark configurations support in spring boot `yml` or `properties` file.**
 
 ## Dependency versions
 It specifies the following versions:

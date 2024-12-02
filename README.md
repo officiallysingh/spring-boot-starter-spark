@@ -23,10 +23,7 @@ It specifies the following versions:
 * Enables auto-completion assistance for Spark configuration properties in Spring boot `yml` and `properties` files in IDEs such as IntelliJ, Eclipse etc. Find details at [**additional-spring-configuration-metadata.json**](src/main/resources/META-INF/additional-spring-configuration-metadata.json)
 
 ## Usage
-Add the following dependency to your `pom.xml`:
-
 Define the following properties in `pom.xml`:
-
 ```xml
 <properties>
     <java.version>17</java.version>
@@ -42,6 +39,8 @@ Define the following properties in `pom.xml`:
 > [!IMPORTANT]
 Spring boot parent pom provides `jakarta-servlet.version` and `jersey.version` versions.
 These must be overridden in your pom as mentioned above otherwise you will get exception java.lang.ClassNotFoundException: javax.servlet.http.HttpServlet.
+
+Add the following dependency to your `pom.xml`:
 ```xml
 <dependency>
     <groupId>org.springframework.boot</groupId>

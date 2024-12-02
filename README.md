@@ -187,6 +187,50 @@ customerIdDatesDf.show();
 > [!NOTE]
 > To support java 8 datetime in Spark, set property `spark.sql.datetime.java8API.enabled` as `true` in `application.yml` or `application.properties`
 
+## Override default beans
+#### Override default `sparkProperties` bean as follows with your custom implementation.  
+Make sure either the bean definition method name or explicitly specified bean name is also `sparkProperties`
+```java
+@Bean
+Properties sparkProperties() {
+    Properties sparkProperties = new Properties();
+    sparkProperties.put("spark.master", "local[*]");
+    return sparkProperties;
+}
+```
+
+#### Override default [**`SparkConf`**](https://spark.apache.org/docs/latest/api/java/org/apache/spark/SparkConf.html) bean as follows with your custom implementation.
+```java
+@Bean
+SparkConf sparkConf() {
+    final SparkConf sparkConf = new SparkConf();
+    sparkConf.set("spark.master", "local[*]");
+    return sparkConf;
+}
+```
+
+#### Override default [**`SparkSession.Builder`**](https://spark.apache.org/docs/latest/api/java/org/apache/spark/sql/SparkSession.Builder.html) bean as follows with your custom implementation.
+```java
+@Bean
+@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+SparkSession.Builder sparkSessionBuilder() {
+    SparkConf sparkConf = new SparkConf();
+    sparkConf.set("spark.master", "local[*]");
+    return builder = SparkSession.builder().config(sparkConf);
+}
+```
+
+#### Override default [**`SparkSession`**](https://spark.apache.org/docs/latest/api/java/org/apache/spark/sql/SparkSession.html) bean as follows with your custom implementation.
+```java
+@Bean(destroyMethod = "stop")
+SparkSession sparkSession() {
+    SparkConf sparkConf = new SparkConf();
+    sparkConf.set("spark.master", "local[*]");
+    final SparkSession sparkSession = SparkSession.builder().config(sparkConf).getOrCreate();
+    return sparkSession;
+}
+```
+
 ## Licence
 Open source [**The MIT License**](http://www.opensource.org/licenses/mit-license.php)
 

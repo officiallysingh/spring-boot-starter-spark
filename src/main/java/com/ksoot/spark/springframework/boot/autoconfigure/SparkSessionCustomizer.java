@@ -4,13 +4,13 @@ import org.apache.spark.sql.SparkSession;
 
 /**
  * Callback interface that can be implemented by beans wishing to further customize the {@link
- * SparkSession} through {@link SparkSession.Builder} retaining its default auto-configuration.
+ * SparkSession} retaining its default auto-configuration.
  */
 @FunctionalInterface
 public interface SparkSessionCustomizer {
 
   /**
-   * Customize the SparkSession. Like register UDFs.
+   * Customize the SparkSession. Like register UDFs etc.
    *
    * @param sparkSession the SparkSession to customize
    */

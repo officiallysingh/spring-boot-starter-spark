@@ -10,7 +10,6 @@ import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 import org.springframework.core.env.*;
 
@@ -23,7 +22,6 @@ public class SparkAutoConfiguration {
   public static final String SPARK_PROPERTIES_BEAN_NAME = "sparkProperties";
   public static final String SPARK_CONF_BEAN_NAME = "sparkConf";
 
-  @Configuration(proxyBeanMethods = false)
   @ConditionalOnClass(SparkSession.class)
   @ConditionalOnMissingBean(SparkSession.class)
   static class SparkSessionConfiguration {
@@ -40,7 +38,6 @@ public class SparkAutoConfiguration {
     }
   }
 
-  @Configuration(proxyBeanMethods = false)
   @ConditionalOnClass(SparkSession.Builder.class)
   @ConditionalOnMissingBean(SparkSession.Builder.class)
   static class SparkSessionBuilderConfiguration {
@@ -57,7 +54,6 @@ public class SparkAutoConfiguration {
     }
   }
 
-  @Configuration(proxyBeanMethods = false)
   @ConditionalOnClass(SparkConf.class)
   @ConditionalOnMissingBean(SparkConf.class)
   static class SparkConfConfiguration {
@@ -70,7 +66,6 @@ public class SparkAutoConfiguration {
     }
   }
 
-  @Configuration(proxyBeanMethods = false)
   @ConditionalOnMissingBean(name = SPARK_PROPERTIES_BEAN_NAME)
   static class SparkPropertiesConfiguration {
 

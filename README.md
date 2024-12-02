@@ -47,7 +47,7 @@ These must be overridden in your pom as mentioned above otherwise you will get e
 Add the following dependency to your `pom.xml`:
 ```xml
 <dependency>
-    <groupId>org.springframework.boot</groupId>
+    <groupId>io.github.officiallysingh</groupId>
     <artifactId>spring-boot-starter-spark</artifactId>
     <version>${spring-boot-starter-spark.version}</version>
 </dependency>
@@ -95,7 +95,7 @@ But if you want to override it, you can define your own [**`SparkConf`**](https:
 
 ## Customizations
 ### Using [**`SparkSessionBuilderCustomizer`**](src/main/java/com/ksoot/spark/springframework/boot/autoconfigure/SparkSessionBuilderCustomizer.java) 
-You can customize [**`SparkSession.Builder`**](https://spark.apache.org/docs/latest/api/java/org/apache/spark/sql/SparkSession.Builder.html) by adding a beans of type [**`SparkSessionBuilderCustomizer`**](src/main/java/com/ksoot/spark/springframework/boot/autoconfigure/SparkSessionBuilderCustomizer.java) to your application.
+You can customize [**`SparkSession.Builder`**](https://spark.apache.org/docs/latest/api/java/org/apache/spark/sql/SparkSession.Builder.html) by defining any number of beans of type [**`SparkSessionBuilderCustomizer`**](src/main/java/com/ksoot/spark/springframework/boot/autoconfigure/SparkSessionBuilderCustomizer.java) in your application.
 
 ```java
 @Bean
@@ -104,7 +104,7 @@ public SparkSessionBuilderCustomizer enableHiveSupportCustomizer() {
 }
 ```
 ###  Using [**`SparkSessionCustomizer`**](src/main/java/com/ksoot/spark/springframework/boot/autoconfigure/SparkSessionCustomizer.java) 
-you can customize [**`SparkSession`**](https://spark.apache.org/docs/latest/api/java/org/apache/spark/sql/SparkSession.html) by adding beans of type [**`SparkSessionCustomizer`**](src/main/java/com/ksoot/spark/springframework/boot/autoconfigure/SparkSessionCustomizer.java) to your application.
+you can customize [**`SparkSession`**](https://spark.apache.org/docs/latest/api/java/org/apache/spark/sql/SparkSession.html) by defining any number of beans of type [**`SparkSessionCustomizer`**](src/main/java/com/ksoot/spark/springframework/boot/autoconfigure/SparkSessionCustomizer.java) in your application.
 Following is an example to register User Defined Function in [**`SparkSession`**](https://spark.apache.org/docs/latest/api/java/org/apache/spark/sql/SparkSession.html):
 
 #### Defining UDF
@@ -163,7 +163,7 @@ class SparkSessionUDFCustomizer implements SparkSessionCustomizer, Ordered {
 }
 ```
 
-#### Calling UDF.
+#### Calling UDF
 ```java
 Dataset<Row> originalDf =
     this.sparkSession.createDataFrame(

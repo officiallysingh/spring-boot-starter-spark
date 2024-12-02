@@ -1,16 +1,16 @@
-# Introduction
+# Spring Boot Starter Spark
+
+![Spark Spring boot Starter](https://github.com/officiallysingh/spring-boot-starter-spark/blob/main/images/Spark%20Spring%20boot%20Starter.png)
+
+
+## Introduction
 Managing dependencies is a crucial part of any complex project. Handling this manually can be tedious and time-consuming, leaving less room to focus on other essential aspects of development.
-
-This is where [**Spring Boot starters**](https://github.com/spring-projects/spring-boot/blob/main/spring-boot-project/spring-boot-starters/README.adoc) come into play. These are pre-configured dependency descriptors designed to simplify dependency management. By including a starter POM in your project, you can effortlessly bring in all the necessary Spring and related technologies, saving you from the hassle of searching through documentation or copying multiple dependency definitions.
-
+This is where [**Spring Boot starters**](https://github.com/spring-projects/spring-boot/blob/main/spring-boot-project/spring-boot-starters/README.adoc) come into play. 
+These are pre-configured dependency descriptors designed to simplify dependency management. By including a starter POM in your project, you can effortlessly bring in all the necessary Spring and related technologies, saving you from the hassle of searching through documentation or copying multiple dependency definitions.
 Spring Boot offers starters for popular technologies to streamline your development process. Though starter for Spark is not available yet.
 
-# Spring Boot Starter Spark
 The Spring Boot Starter for Spark is a set of convenient dependency descriptors that you can include in your Spring boot application 
 to have all required Spark dependencies and [**`SparkSession`**](https://spark.apache.org/docs/latest/api/java/org/apache/spark/sql/SparkSession.html) bean auto-configured with spark configurations support in spring boot `yml` or `properties` file.
-
-![Spark Spring boot Starter](https://github.com/officiallysingh/spring-boot-starter-spark/blob/main/Spark%20Spring%20boot%20Starter.png)
-
 
 ## Dependency versions
 It specifies the following versions:
@@ -24,7 +24,7 @@ It specifies the following versions:
 * Provides auto-configured [**`SparkSession`**](https://spark.apache.org/docs/latest/api/java/org/apache/spark/sql/SparkSession.html) bean which can be customized in any manner.
 * Exposes all Spark configurations as Spring boot environment properties.
 * Enables auto-completion assistance for Spark configuration properties in Spring boot `yml` and `properties` files in IDEs such as IntelliJ, Eclipse etc. Find details at [**additional-spring-configuration-metadata.json**](src/main/resources/META-INF/additional-spring-configuration-metadata.json)
-  ![IntelliJ Auto Completion](https://github.com/officiallysingh/spring-boot-starter-spark/blob/main/IntelliJ%20Auto%20Completion.png)
+  ![IntelliJ Auto Completion](https://github.com/officiallysingh/spring-boot-starter-spark/blob/main/images/IntelliJ%20Auto%20Completion.png)
 
 ## Usage
 Define the following properties in `pom.xml`:

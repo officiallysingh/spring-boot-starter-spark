@@ -245,7 +245,7 @@ Open source [**The MIT License**](http://www.opensource.org/licenses/mit-license
 
 ## Authors and acknowledgment
 [**Rajveer Singh**](https://www.linkedin.com/in/rajveer-singh-589b3950/), In case you find any issues or need any support, please email me at raj14.1984@gmail.com.
-Please give me a :star: if you find it helpful.
+Please give me a :star: and a :clap: on [**medium.com**](https://officiallysingh.medium.com/spark-spring-boot-starter-e206def765b9) if you find it helpful.
 
 ## References
 * To know about Spark Refer to [**Spark Documentation**](https://spark.apache.org/docs/3.5.3/).

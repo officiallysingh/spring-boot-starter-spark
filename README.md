@@ -26,7 +26,7 @@ It specifies the following versions:
 * Enables auto-completion assistance for Spark configuration properties in Spring boot `yml` and `properties` files in IDEs such as IntelliJ, Eclipse etc. Find details at [**additional-spring-configuration-metadata.json**](src/main/resources/META-INF/additional-spring-configuration-metadata.json)
   ![IntelliJ Auto Completion](https://github.com/officiallysingh/spring-boot-starter-spark/blob/main/images/IntelliJ%20Auto%20Completion.png)
 
-## Usage
+## Installation
 Define the following properties in `pom.xml`:
 ```xml
 <properties>

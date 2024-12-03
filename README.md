@@ -197,11 +197,15 @@ customerIdDatesDf.show();
 > To support java 8 datetime in Spark, set property `spark.sql.datetime.java8API.enabled` as `true` in `application.yml` or `application.properties`
 
 ## Override default beans
+It isn't recommended to override default beans as you can always extend them in your application. 
+But if you really need to do that, you can do it as follows:
+
 #### Override default `sparkProperties` bean as follows with your custom implementation.  
-Make sure either the bean definition method name or explicitly specified bean name is also `sparkProperties`
+Make sure either the bean definition method name or explicitly specified bean name is `sparkProperties`, otherwise it would not override the default bean.
 ```java
 @Bean
 Properties sparkProperties() {
+  // Your custom logic. The Following is just for demonstration
     Properties sparkProperties = new Properties();
     sparkProperties.put("spark.master", "local[*]");
     return sparkProperties;
@@ -212,6 +216,7 @@ Properties sparkProperties() {
 ```java
 @Bean
 SparkConf sparkConf() {
+  // Your custom logic. The Following is just for demonstration
     final SparkConf sparkConf = new SparkConf();
     sparkConf.set("spark.master", "local[*]");
     return sparkConf;
@@ -223,6 +228,7 @@ SparkConf sparkConf() {
 @Bean
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 SparkSession.Builder sparkSessionBuilder() {
+  // Your custom logic. The Following is just for demonstration
     SparkConf sparkConf = new SparkConf();
     sparkConf.set("spark.master", "local[*]");
     return builder = SparkSession.builder().config(sparkConf);
@@ -233,6 +239,7 @@ SparkSession.Builder sparkSessionBuilder() {
 ```java
 @Bean(destroyMethod = "stop")
 SparkSession sparkSession() {
+  // Your custom logic. The Following is just for demonstration
     SparkConf sparkConf = new SparkConf();
     sparkConf.set("spark.master", "local[*]");
     final SparkSession sparkSession = SparkSession.builder().config(sparkConf).getOrCreate();

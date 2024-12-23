@@ -7,7 +7,9 @@
 Managing dependencies is a crucial part of any complex project. Handling this manually can be tedious and time-consuming, leaving less room to focus on other essential aspects of development.
 This is where [**Spring Boot starters**](https://github.com/spring-projects/spring-boot/blob/main/spring-boot-project/spring-boot-starters/README.adoc) come into play. 
 These are pre-configured dependency descriptors designed to simplify dependency management. By including a starter POM in your project, you can effortlessly bring in all the necessary Spring and related technologies, saving you from the hassle of searching through documentation or copying multiple dependency definitions.
-Spring Boot offers starters for popular technologies to streamline your development process. Though starter for Spark is not available yet.
+Spring Boot offers starters for popular technologies to streamline your development process. 
+Though starter for Spark is not available yet because it's recommended to have Spark dependencies in `provided` scope in your applications, as they are supposed to be provided by containers where the Jobs are deployed such as Spark Cluster or [AWS EMR](https://aws.amazon.com/emr/).
+But as long as the Spark dependency versions in your application are same as that in container, it does not matter if you have them in `compile` scope.
 
 **The Spring Boot Starter for Spark is a set of convenient dependency descriptors that you can include in your Spring boot application 
 to have all required Spark dependencies and [**`SparkSession`**](https://spark.apache.org/docs/latest/api/java/org/apache/spark/sql/SparkSession.html) bean auto-configured with spark configurations support in spring boot `yml` or `properties` file in your favourite IDE.**
@@ -27,13 +29,15 @@ It specifies the following versions:
   ![IntelliJ Auto Completion](https://github.com/officiallysingh/spring-boot-starter-spark/blob/main/images/IntelliJ%20Auto%20Completion.png)
 
 ## Installation
+> **Current version: 1.1** Refer to [Release notes](https://github.com/officiallysingh/spring-boot-starter-spark/releases) while upgrading.
+
 Define the following properties in `pom.xml`:
 ```xml
 <properties>
     <java.version>17</java.version>
     <spring-boot.version>3.4.0</spring-boot.version>
 
-    <spring-boot-starter-spark.version>1.0</spring-boot-starter-spark.version>
+    <spring-boot-starter-spark.version>1.1</spring-boot-starter-spark.version>
     <!-- The Following two versions must be specified otherwise you will get exception java.lang.ClassNotFoundException: javax.servlet.http.HttpServlet-->
     <jakarta-servlet.version>4.0.3</jakarta-servlet.version>
     <jersey.version>2.36</jersey.version>

@@ -21,6 +21,17 @@ It specifies the following versions:
 * Spark 3.5.3
 * Scala 2.12.18
 
+```xml
+<java.version>17</java.version>
+<spring-boot.version>3.4.0</spring-boot.version>
+
+<!-- Spark dependencies versions-->
+<scala.version>2.12.18</scala.version>
+<scala.compact.version>2.12</scala.compact.version>
+<spark.version>3.5.3</spark.version>
+<spark.compact.version>3.5</spark.compact.version>
+```
+
 ## Features
 * Bundles spark dependencies compatible with Spring boot 3+.   
 * Provides auto-configured [**`SparkSession`**](https://spark.apache.org/docs/latest/api/java/org/apache/spark/sql/SparkSession.html) bean which can be customized in any manner.

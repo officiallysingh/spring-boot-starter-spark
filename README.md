@@ -8,7 +8,7 @@ Managing dependencies is a crucial part of any complex project. Handling this ma
 This is where [**Spring Boot starters**](https://github.com/spring-projects/spring-boot/blob/main/spring-boot-project/spring-boot-starters/README.adoc) come into play. 
 These are pre-configured dependency descriptors designed to simplify dependency management. By including a starter POM in your project, you can effortlessly bring in all the necessary Spring and related technologies, saving you from the hassle of searching through documentation or copying multiple dependency definitions.
 Spring Boot offers starters for popular technologies to streamline your development process. 
-Though starter for Spark is not available yet because it's recommended to have Spark dependencies in `provided` scope in your applications, as they are supposed to be provided by containers where the Jobs are deployed such as Spark Cluster or [AWS EMR](https://aws.amazon.com/emr/).
+But starter for Spark is not available yet because it's recommended to have Spark dependencies in `provided` scope in your applications, as they are supposed to be provided by containers where the Jobs are deployed such as Spark Cluster or [AWS EMR](https://aws.amazon.com/emr/).
 But as long as the Spark dependency versions in your application are same as that in container, it does not matter if you have them in `compile` scope.
 
 **The Spring Boot Starter for Spark is a set of convenient dependency descriptors that you can include in your Spring boot application 

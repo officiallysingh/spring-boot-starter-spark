@@ -1,1 +1,2 @@
 com.ksoot.spark.springframework.boot.autoconfigure.SparkAutoConfiguration
+com.ksoot.spark.springframework.boot.autoconfigure.SparkCatalogAutoConfiguration

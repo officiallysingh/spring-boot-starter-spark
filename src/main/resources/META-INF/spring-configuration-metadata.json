@@ -1,12 +1,6 @@
 {
   "properties": [
     {
-      "name": "spark",
-      "type": "java.util.Map<java.lang.String, java.lang.Object>",
-      "defaultValue": "spark-defaults.conf",
-      "description": "Overrides default Spark properties. For details refer to <a href=\"https://spark.apache.org/docs/3.4.1/configuration.html#available-properties\">Spark configurations</a> and <a href=\"https://spark.apache.org/docs/3.4.1/running-on-kubernetes.html#configuration\">Spark Kubernetes configurations</a>."
-    },
-    {
       "name": "spark.app.name",
       "type": "java.lang.String",
       "defaultValue": "spark-job",
@@ -71,6 +65,12 @@
       "type": "java.lang.String",
       "defaultValue": "1g",
       "description": "Amount of memory to use per executor process, in the same format as JVM memory strings with a size unit suffix (\"k\", \"m\", \"g\" or \"t\") (e.g. 512m, 2g)."
+    },
+    {
+      "name": "spark.executor.instances",
+      "type": "java.lang.Integer",
+      "defaultValue": "1",
+      "description": "Number of Executors."
     },
     {
       "name": "spark.executor.pyspark.memory",
@@ -3815,6 +3815,120 @@
       "type": "java.lang.Boolean",
       "defaultValue": true,
       "description": "Enable faster uploads."
+    },
+    {
+      "name": "spark.sql.catalog.{catalog-name}.type",
+      "type": "java.lang.String",
+      "defaultValue": "",
+      "description": "The underlying Iceberg catalog implementation, HiveCatalog, HadoopCatalog, RESTCatalog, GlueCatalog, JdbcCatalog, NessieCatalog or left unset if using a custom catalog."
+    },
+    {
+      "name": "spark.sql.catalog.{catalog-name}.catalog-impl",
+      "type": "java.lang.String",
+      "defaultValue": "",
+      "description": "The custom Iceberg catalog implementation. If type is null, catalog-impl must not be null."
+    },
+    {
+      "name": "spark.sql.catalog.{catalog-name}.io-impl",
+      "type": "java.lang.String",
+      "defaultValue": "",
+      "description": "The custom FileIO implementation."
+    },
+    {
+      "name": "spark.sql.catalog.{catalog-name}.metrics-reporter-impl",
+      "type": "java.lang.String",
+      "defaultValue": "",
+      "description": "The custom MetricsReporter implementation."
+    },
+    {
+      "name": "spark.sql.catalog.{catalog-name}.default-namespace",
+      "type": "java.lang.String",
+      "defaultValue": "default",
+      "description": "The default current namespace for the catalog."
+    },
+    {
+      "name": "spark.sql.catalog.{catalog-name}.uri",
+      "type": "java.lang.String",
+      "defaultValue": "thrift://host:port",
+      "description": "Hive metastore URL for hive typed catalog, REST URL for REST typed catalog."
+    },
+    {
+      "name": "spark.sql.catalog.{catalog-name}.warehouse",
+      "type": "java.lang.String",
+      "defaultValue": "hdfs://nn:8020/warehouse/path",
+      "description": "Base path for the warehouse directory."
+    },
+    {
+      "name": "spark.sql.catalog.{catalog-name}.cache-enabled",
+      "type": "java.lang.String",
+      "defaultValue": "true",
+      "description": "Whether to enable catalog cache, default value is true."
+    },
+    {
+      "name": "spark.sql.catalog.{catalog-name}.cache.expiration-interval-ms",
+      "type": "java.lang.String",
+      "defaultValue": "30000",
+      "description": "Duration after which cached catalog entries are expired; Only effective if cache-enabled is true. -1 disables cache expiration and 0 disables caching entirely, irrespective of cache-enabled. Default is 30000 (30 seconds)."
+    },
+    {
+      "name": "spark.sql.catalog.{catalog-name}.table-default.{propertyKey}",
+      "type": "java.lang.String",
+      "defaultValue": "",
+      "description": "Default Iceberg table property value for property key propertyKey, which will be set on tables created by this catalog if not overridden."
+    },
+    {
+      "name": "spark.sql.catalog.{catalog-name}.table-override.{propertyKey}",
+      "type": "java.lang.String",
+      "defaultValue": "",
+      "description": "Enforced Iceberg table property value for property key propertyKey, which cannot be overridden by user."
+    },
+    {
+      "name": "spark.sql.catalog.{catalog-name}.use-nullable-query-schema",
+      "type": "java.lang.String",
+      "defaultValue": "true",
+      "description": "Whether to preserve fields' nullability when creating the table using CTAS and RTAS. If set to true, all fields will be marked as nullable. If set to false, fields' nullability will be preserved. The default value is true. Available in Spark 3.5 and above."
+    },
+    {
+      "name": "spark.sql.catalog.{catalog-name}.hadoop.fs.s3a.access.key",
+      "type": "java.lang.String",
+      "defaultValue": "",
+      "description": "Catalog specific AWS Access key. Specific to this Catalog."
+    },
+    {
+      "name": "spark.sql.catalog.{catalog-name}.hadoop.fs.s3a.secret.key",
+      "type": "java.lang.String",
+      "defaultValue": "",
+      "description": "AWS Secret key. Specific to this Catalog."
+    },
+    {
+      "name": "spark.sql.catalog.{catalog-name}.hadoop.fs.s3a.endpoint",
+      "type": "java.lang.String",
+      "defaultValue": "",
+      "description": "AWS S3 endpoint URL. Specific to this Catalog."
+    },
+    {
+      "name": "spark.sql.catalog.{catalog-name}.hadoop.fs.s3a.impl",
+      "type": "java.lang.String",
+      "defaultValue": "org.apache.hadoop.fs.s3a.S3AFileSystem",
+      "description": "Implementation class for S3A file system. Specific to this Catalog."
+    },
+    {
+      "name": "spark.sql.catalog.{catalog-name}.hadoop.fs.s3a.path.style.access",
+      "type": "java.lang.Boolean",
+      "defaultValue": true,
+      "description": "For path-style access, useful in some S3-compatible services. Specific to this Catalog."
+    },
+    {
+      "name": "spark.sql.catalog.{catalog-name}.hadoop.fs.s3a.connection.ssl.enabled",
+      "type": "java.lang.Boolean",
+      "defaultValue": true,
+      "description": "Enable SSL. Specific to this Catalog."
+    },
+    {
+      "name": "spark.sql.catalog.{catalog-name}.hadoop.fs.s3a.fast.upload",
+      "type": "java.lang.Boolean",
+      "defaultValue": true,
+      "description": "Enable faster uploads. Specific to this Catalog."
     }
   ]
 }

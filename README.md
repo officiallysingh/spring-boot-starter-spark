@@ -18,8 +18,8 @@ to have all required Spark dependencies and [**`SparkSession`**](https://spark.a
 It specifies the following versions:
 * Java 17
 * Spring Boot 3.4.0
-* Spark 3.5.3
-* Scala 2.12.18
+* Spark 3.5.5
+* Scala 2.13.16
 
 ```xml
 <java.version>17</java.version>
@@ -35,12 +35,13 @@ It specifies the following versions:
 ## Features
 * Bundles spark dependencies compatible with Spring boot 3+.   
 * Provides auto-configured [**`SparkSession`**](https://spark.apache.org/docs/latest/api/java/org/apache/spark/sql/SparkSession.html) bean which can be customized in any manner.
-* Exposes all Spark configurations as Spring boot environment properties.
+* Provides auto-configured [**`Iceberg Catalog`**](https://iceberg.apache.org/docs/1.9.0/java-api-quickstart/) supporting `Hadoop`, `Hive` and `Nessie`.
+* Exposes all Spark configurations including Catalog configurations as Spring boot environment properties.
 * Enables auto-completion assistance for Spark configuration properties in Spring boot `yml` and `properties` files in IDEs such as IntelliJ, Eclipse etc. Find details at [**additional-spring-configuration-metadata.json**](src/main/resources/META-INF/additional-spring-configuration-metadata.json)
   ![IntelliJ Auto Completion](https://github.com/officiallysingh/spring-boot-starter-spark/blob/main/images/IntelliJ%20Auto%20Completion.png)
 
 ## Installation
-> **Current version: 1.1** Refer to [Release notes](https://github.com/officiallysingh/spring-boot-starter-spark/releases) while upgrading.
+> **Current version: 1.2** Refer to [Release notes](https://github.com/officiallysingh/spring-boot-starter-spark/releases) while upgrading.
 
 Define the following properties in `pom.xml`:
 ```xml
@@ -48,7 +49,7 @@ Define the following properties in `pom.xml`:
     <java.version>17</java.version>
     <spring-boot.version>3.4.0</spring-boot.version>
 
-    <spring-boot-starter-spark.version>1.1</spring-boot-starter-spark.version>
+    <spring-boot-starter-spark.version>1.2</spring-boot-starter-spark.version>
     <!-- The Following two versions must be specified otherwise you will get exception java.lang.ClassNotFoundException: javax.servlet.http.HttpServlet-->
     <jakarta-servlet.version>4.0.3</jakarta-servlet.version>
     <jersey.version>2.36</jersey.version>
@@ -100,6 +101,7 @@ spark.driver.cores=1
 ```
 
 ## Auto-configuration
+### Spark Session
 The following Spring beans are auto-configured but they are conditional and can be customized as elaborated in the next section.  
 For details refer to [**`SparkAutoConfiguration`**](src/main/java/com/ksoot/spark/springframework/boot/autoconfigure/SparkAutoConfiguration.java)
 * [**`SparkSession`**](https://spark.apache.org/docs/latest/api/java/org/apache/spark/sql/SparkSession.html) bean is auto-configured, but if you want to override you can define your own [**`SparkSession`**](https://spark.apache.org/docs/latest/api/java/org/apache/spark/sql/SparkSession.html) class bean in your application.
@@ -107,6 +109,14 @@ For details refer to [**`SparkAutoConfiguration`**](src/main/java/com/ksoot/spar
 But if you want to override it, you can define your own [**`SparkConf`**](https://spark.apache.org/docs/latest/api/java/org/apache/spark/SparkConf.html) class bean in your application.
 * `sprkProperties` bean exposes all spark configurations as Spring boot environment properties. All properties in this bean as set in [**`SparkConf`**](https://spark.apache.org/docs/latest/api/java/org/apache/spark/SparkConf.html) bean.
 * [**`SparkSession.Builder`**](https://spark.apache.org/docs/latest/api/java/org/apache/spark/sql/SparkSession.Builder.html) provides extension mechanism to customise [**`SparkSession`**](https://spark.apache.org/docs/latest/api/java/org/apache/spark/sql/SparkSession.html) bean creation. 
+### Iceberg Catalog
+The following Spring beans are auto-configured but they are conditional and can be overridden by defining these beans in your application code.  
+For details refer to [**`SparkCatalogAutoConfiguration`**](src/main/java/com/ksoot/spark/springframework/boot/autoconfigure/SparkCatalogAutoConfiguration.java)
+**Iceberg** [**`Catalog`**](https://github.com/apache/iceberg/blob/main/api/src/main/java/org/apache/iceberg/catalog/Catalog.java) bean is auto-configured based on the catalog type specified in `application.yml` or `application.properties` file.
+  * If catalog type is `hadoop`, it auto-configures [**`HadoopCatalog`**](https://iceberg.apache.org/docs/1.9.0/java-api-quickstart/#using-a-hadoop-catalog).
+  * If catalog type is `hive`, it auto-configures [**`HiveCatalog`**](https://iceberg.apache.org/docs/1.9.0/java-api-quickstart/#using-a-hive-catalog).
+  * If catalog type is `nessie`, it auto-configures [**`NessieCatalog`**](https://iceberg.apache.org/docs/1.9.0/nessie/).
+[**CatalogProperties**](src/main/java/com/ksoot/spark/springframework/boot/autoconfigure/CatalogProperties.java) is auto-configured with properties specified in `application.yml` or `application.properties` file.
 
 ## Customizations
 ### Using [**`SparkSessionBuilderCustomizer`**](src/main/java/com/ksoot/spark/springframework/boot/autoconfigure/SparkSessionBuilderCustomizer.java) 
@@ -211,6 +221,56 @@ customerIdDatesDf.show();
 > [!NOTE]
 > To support java 8 datetime in Spark, set property `spark.sql.datetime.java8API.enabled` as `true` in `application.yml` or `application.properties`
 
+### Iceberg Catalog Configuration
+Following are Iceberg Catalog configurations using Local Hadoop as Data storage.  
+For Spark Iceberg integration demo refer to [**`spring-boot-spark-iceberg`**](https://github.com/officiallysingh/spring-boot-spark-iceberg).
+
+#### Hadoop Catalog
+Configure Hadoop Catalog as follows.
+```yaml
+spark:
+  sql:
+    catalog:
+      hadoop: org.apache.iceberg.spark.SparkCatalog
+      hadoop.type: hadoop
+      hadoop.warehouse: ${CATALOG_WAREHOUSE:hdfs://localhost:9000/warehouse}
+      hadoop.uri: ${CATALOG_URI:hdfs://localhost:9000}
+      hadoop.default-namespace: ${CATALOG_NAMESPACE:ksoot}
+      hadoop.io-impl: org.apache.iceberg.hadoop.HadoopFileIO
+```
+
+#### Hive Catalog
+Configure Hive Catalog as follows.
+```yaml
+spark:
+  sql:
+    catalog:
+      hadoop: org.apache.iceberg.spark.SparkCatalog
+      hadoop.type: hadoop
+      hadoop.warehouse: ${CATALOG_WAREHOUSE:hdfs://localhost:9000/warehouse}
+      hadoop.uri: ${CATALOG_URI:hdfs://localhost:9000}
+      hadoop.default-namespace: ${CATALOG_NAMESPACE:ksoot}
+      hadoop.io-impl: org.apache.iceberg.hadoop.HadoopFileIO
+```
+
+#### Nessie Catalog
+Configure Nessie Catalog as follows.
+```yaml
+spark:
+  sql:
+    catalog:
+      nessie: org.apache.iceberg.spark.SparkCatalog
+      nessie.type: nessie
+      nessie.warehouse: ${CATALOG_WAREHOUSE:hdfs://localhost:9000/warehouse}
+      nessie.uri: ${CATALOG_URI:http://localhost:19120/api/v2}
+      nessie.default-namespace: ${CATALOG_NAMESPACE:ksoot}
+      nessie.io-impl: org.apache.iceberg.hadoop.HadoopFileIO
+```
+
+> [!IMPORTANT]
+> AWS S3, Azure Blob Storage and Google Cloud Storage (GCS) are also supported as data storage for Iceberg tables.  
+> Need to configure catalog properties accordingly in `application.yml` or `application.properties` file.
+
 ## Override default beans
 It isn't recommended to override default beans as you can always extend them in your application. 
 But if you really need to do that, you can do it as follows:
@@ -262,6 +322,15 @@ SparkSession sparkSession() {
 }
 ```
 
+#### Override default [**`Catalog`**](https://github.com/apache/iceberg/blob/main/api/src/main/java/org/apache/iceberg/catalog/Catalog.java) bean as follows with your custom implementation.
+```java
+  @Bean
+Catalog catalog(final SparkSession sparkSession, final CatalogProperties catalogProperties) {
+    // Your custom logic
+
+}
+```
+
 ## Licence
 Open source [**The MIT License**](http://www.opensource.org/licenses/mit-license.php)
 
@@ -270,6 +339,6 @@ Open source [**The MIT License**](http://www.opensource.org/licenses/mit-license
 Please give me a :star: and a :clap: on [**medium.com**](https://officiallysingh.medium.com/spark-spring-boot-starter-e206def765b9) if you find it helpful.
 
 ## References
-* To know about Spark Refer to [**Spark Documentation**](https://spark.apache.org/docs/3.5.3/).
-* Find all Spark Configurations details at [**Spark Configuration Documentation**](https://spark.apache.org/docs/3.5.3/configuration.html)
+* To know about Spark Refer to [**Spark Documentation**](https://spark.apache.org/docs/latest/).
+* Find all Spark Configurations details at [**Spark Configuration Documentation**](https://spark.apache.org/docs/latest/configuration.html)
 * [**How to create new Spring boot starter**](https://nortal.com/insights/starters-connecting-infrastructure)

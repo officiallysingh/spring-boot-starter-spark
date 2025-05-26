@@ -1,7 +1,11 @@
 package com.ksoot.spark.springframework.boot.autoconfigure;
 
+import static com.ksoot.spark.util.SparkConstants.SPARK_PREFIX;
+import static com.ksoot.spark.util.SparkConstants.SPARK_PROPERTIES_BEAN_NAME;
+
 import java.util.*;
 import java.util.stream.Collectors;
+import org.apache.hadoop.conf.Configuration;
 import org.apache.spark.SparkConf;
 import org.apache.spark.sql.SparkSession;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -15,12 +19,6 @@ import org.springframework.core.env.*;
 
 @AutoConfiguration
 public class SparkAutoConfiguration {
-
-  private static final String SPARK_PREFIX = "spark.";
-
-  public static final String SPARK_SESSION_BEAN_NAME = "sparkSession";
-  public static final String SPARK_PROPERTIES_BEAN_NAME = "sparkProperties";
-  public static final String SPARK_CONF_BEAN_NAME = "sparkConf";
 
   @ConditionalOnClass(SparkSession.class)
   @ConditionalOnMissingBean(SparkSession.class)
@@ -93,6 +91,19 @@ public class SparkAutoConfiguration {
       } else {
         return new Properties();
       }
+    }
+  }
+
+  @ConditionalOnMissingBean(Configuration.class)
+  static class SparkHadoopConfiguration {
+
+    @Bean
+    Configuration hadoopConfiguration(final SparkSession sparkSession) {
+      //      Configuration hadoopConfiguration = new Configuration();
+      //
+      // hadoopConfiguration.set(org.apache.iceberg.hadoop.ConfigProperties.ENGINE_HIVE_ENABLED,
+      // "true");
+      return sparkSession.sparkContext().hadoopConfiguration();
     }
   }
 }

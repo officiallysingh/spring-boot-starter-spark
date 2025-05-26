@@ -4,11 +4,15 @@
 
 
 ## Introduction
-Managing dependencies is a crucial part of any complex project. Handling this manually can be tedious and time-consuming, leaving less room to focus on other essential aspects of development.
+Managing dependencies is a crucial part of any complex project. Handling this manually can be tedious and time-consuming,  
+leaving less room to focus on other essential aspects of development.
 This is where [**Spring Boot starters**](https://github.com/spring-projects/spring-boot/blob/main/spring-boot-project/spring-boot-starters/README.adoc) come into play. 
-These are pre-configured dependency descriptors designed to simplify dependency management. By including a starter POM in your project, you can effortlessly bring in all the necessary Spring and related technologies, saving you from the hassle of searching through documentation or copying multiple dependency definitions.
+These are pre-configured dependency descriptors designed to simplify dependency management.  
+By including a starter POM in your project, you can effortlessly bring in all the necessary Spring and related technologies,  
+saving you from the hassle of searching through documentation or copying multiple dependency definitions.
 Spring Boot offers starters for popular technologies to streamline your development process. 
-But starter for Spark is not available yet because it's recommended to have Spark dependencies in `provided` scope in your applications, as they are supposed to be provided by containers where the Jobs are deployed such as Spark Cluster or [AWS EMR](https://aws.amazon.com/emr/).
+But starter for Spark is not available yet because it's recommended to have Spark dependencies in `provided` scope in your applications,  
+as they are supposed to be provided by containers where the Jobs are deployed such as Spark Cluster or [AWS EMR](https://aws.amazon.com/emr/).
 But as long as the Spark dependency versions in your application are same as that in container, it does not matter if you have them in `compile` scope.
 
 **The Spring Boot Starter for Spark is a set of convenient dependency descriptors that you can include in your Spring boot application 
@@ -105,7 +109,8 @@ spark.driver.cores=1
 The following Spring beans are auto-configured but they are conditional and can be customized as elaborated in the next section.  
 For details refer to [**`SparkAutoConfiguration`**](src/main/java/com/ksoot/spark/springframework/boot/autoconfigure/SparkAutoConfiguration.java)
 * [**`SparkSession`**](https://spark.apache.org/docs/latest/api/java/org/apache/spark/sql/SparkSession.html) bean is auto-configured, but if you want to override you can define your own [**`SparkSession`**](https://spark.apache.org/docs/latest/api/java/org/apache/spark/sql/SparkSession.html) class bean in your application.
-* [**`SparkConf`**](https://spark.apache.org/docs/latest/api/java/org/apache/spark/SparkConf.html) bean is auto-configured with Spark configuration properties using the standard Spring boot mechanism i.e. you can use a variety of external configuration sources including Java properties files, YAML files, environment variables, and command-line arguments.
+* [**`SparkConf`**](https://spark.apache.org/docs/latest/api/java/org/apache/spark/SparkConf.html) bean is auto-configured with Spark configuration properties using the standard Spring boot mechanism  
+i.e. you can use a variety of external configuration sources including Java properties files, YAML files, environment variables, and command-line arguments.
 But if you want to override it, you can define your own [**`SparkConf`**](https://spark.apache.org/docs/latest/api/java/org/apache/spark/SparkConf.html) class bean in your application.
 * `sprkProperties` bean exposes all spark configurations as Spring boot environment properties. All properties in this bean as set in [**`SparkConf`**](https://spark.apache.org/docs/latest/api/java/org/apache/spark/SparkConf.html) bean.
 * [**`SparkSession.Builder`**](https://spark.apache.org/docs/latest/api/java/org/apache/spark/sql/SparkSession.Builder.html) provides extension mechanism to customise [**`SparkSession`**](https://spark.apache.org/docs/latest/api/java/org/apache/spark/sql/SparkSession.html) bean creation. 
@@ -117,6 +122,8 @@ For details refer to [**`SparkCatalogAutoConfiguration`**](src/main/java/com/kso
   * If catalog type is `hive`, it auto-configures [**`HiveCatalog`**](https://iceberg.apache.org/docs/1.9.0/java-api-quickstart/#using-a-hive-catalog).
   * If catalog type is `nessie`, it auto-configures [**`NessieCatalog`**](https://iceberg.apache.org/docs/1.9.0/nessie/).
 [**CatalogProperties**](src/main/java/com/ksoot/spark/springframework/boot/autoconfigure/CatalogProperties.java) is auto-configured with properties specified in `application.yml` or `application.properties` file.
+
+**Refer to** [**Apache Hadoop and Hive installation guide**](https://medium.com/@officiallysingh/install-apache-hadoop-and-hive-on-mac-m3-7933e509da90) **for details on how to install Hadoop and Hive**.
 
 ## Customizations
 ### Using [**`SparkSessionBuilderCustomizer`**](src/main/java/com/ksoot/spark/springframework/boot/autoconfigure/SparkSessionBuilderCustomizer.java) 

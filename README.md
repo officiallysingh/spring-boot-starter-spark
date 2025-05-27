@@ -2,7 +2,6 @@
 
 ![Spark Spring boot Starter](https://github.com/officiallysingh/spring-boot-starter-spark/blob/main/images/Spark%20Spring%20boot%20Starter.png)
 
-
 ## Introduction
 Managing dependencies is a crucial part of any complex project. Handling this manually can be tedious and time-consuming,  
 leaving less room to focus on other essential aspects of development.
@@ -116,25 +115,27 @@ But if you want to override it, you can define your own [**`SparkConf`**](https:
 * [**`SparkSession.Builder`**](https://spark.apache.org/docs/latest/api/java/org/apache/spark/sql/SparkSession.Builder.html) provides extension mechanism to customise [**`SparkSession`**](https://spark.apache.org/docs/latest/api/java/org/apache/spark/sql/SparkSession.html) bean creation. 
 ### Iceberg Catalog
 The following Spring beans are auto-configured but they are conditional and can be overridden by defining these beans in your application code.  
-For details refer to [**`SparkCatalogAutoConfiguration`**](src/main/java/com/ksoot/spark/springframework/boot/autoconfigure/SparkCatalogAutoConfiguration.java)
-**Iceberg** [**`Catalog`**](https://github.com/apache/iceberg/blob/main/api/src/main/java/org/apache/iceberg/catalog/Catalog.java) bean is auto-configured based on the catalog type specified in `application.yml` or `application.properties` file.
+For details refer to [**`SparkCatalogAutoConfiguration`**](src/main/java/com/ksoot/spark/springframework/boot/autoconfigure/SparkCatalogAutoConfiguration.java), 
+It has been tested with following Catalog types, but [other Catalog types](https://iceberg.apache.org/docs/latest/spark-configuration/#catalog-configuration) 
+would also work as long as you have the required dependencies in your classpath and catalog configurations in place.
+* **Iceberg** [**`Catalog`**](https://github.com/apache/iceberg/blob/main/api/src/main/java/org/apache/iceberg/catalog/Catalog.java) bean is auto-configured based on the catalog type specified in `application.yml` or `application.properties` file.
   * If catalog type is `hadoop`, it auto-configures [**`HadoopCatalog`**](https://iceberg.apache.org/docs/1.9.0/java-api-quickstart/#using-a-hadoop-catalog).
   * If catalog type is `hive`, it auto-configures [**`HiveCatalog`**](https://iceberg.apache.org/docs/1.9.0/java-api-quickstart/#using-a-hive-catalog).
   * If catalog type is `nessie`, it auto-configures [**`NessieCatalog`**](https://iceberg.apache.org/docs/1.9.0/nessie/).
-[**CatalogProperties**](src/main/java/com/ksoot/spark/springframework/boot/autoconfigure/CatalogProperties.java) is auto-configured with properties specified in `application.yml` or `application.properties` file.
+* [**CatalogProperties**](src/main/java/com/ksoot/spark/springframework/boot/autoconfigure/CatalogProperties.java) is auto-configured with properties specified in `application.yml` or `application.properties` file.
 
 **Refer to** [**Apache Hadoop and Hive installation guide**](https://medium.com/@officiallysingh/install-apache-hadoop-and-hive-on-mac-m3-7933e509da90) **for details on how to install Hadoop and Hive**.
 
 ## Customizations
 ### Using [**`SparkSessionBuilderCustomizer`**](src/main/java/com/ksoot/spark/springframework/boot/autoconfigure/SparkSessionBuilderCustomizer.java) 
 You can customize [**`SparkSession.Builder`**](https://spark.apache.org/docs/latest/api/java/org/apache/spark/sql/SparkSession.Builder.html) by defining any number of beans of type [**`SparkSessionBuilderCustomizer`**](src/main/java/com/ksoot/spark/springframework/boot/autoconfigure/SparkSessionBuilderCustomizer.java) in your application.
-
 ```java
 @Bean
 public SparkSessionBuilderCustomizer enableHiveSupportCustomizer() {
     return SparkSession.Builder::enableHiveSupport;
 }
 ```
+
 ###  Using [**`SparkSessionCustomizer`**](src/main/java/com/ksoot/spark/springframework/boot/autoconfigure/SparkSessionCustomizer.java) 
 you can customize [**`SparkSession`**](https://spark.apache.org/docs/latest/api/java/org/apache/spark/sql/SparkSession.html) by defining any number of beans of type [**`SparkSessionCustomizer`**](src/main/java/com/ksoot/spark/springframework/boot/autoconfigure/SparkSessionCustomizer.java) in your application.
 Following is an example to register User Defined Function in [**`SparkSession`**](https://spark.apache.org/docs/latest/api/java/org/apache/spark/sql/SparkSession.html):
@@ -228,12 +229,12 @@ customerIdDatesDf.show();
 > [!NOTE]
 > To support java 8 datetime in Spark, set property `spark.sql.datetime.java8API.enabled` as `true` in `application.yml` or `application.properties`
 
-### Iceberg Catalog Configuration
-Following are Iceberg Catalog configurations using Local Hadoop as Data storage.  
-For Spark Iceberg integration demo refer to [**`spring-boot-spark-iceberg`**](https://github.com/officiallysingh/spring-boot-spark-iceberg).
+### Iceberg Catalog Configuration with Local Hadoop as Data storage
+**For Spark Iceberg integration demo refer to** [**`spring-boot-spark-iceberg`**](https://github.com/officiallysingh/spring-boot-spark-iceberg).  
 
+Following are Iceberg Catalog configurations using Local Hadoop as Data storage.
 #### Hadoop Catalog
-Configure Hadoop Catalog as follows.
+Configure Hadoop Catalog as follows. Catalog name is also set to `hadoop` but it can be any name you want.
 ```yaml
 spark:
   sql:
@@ -247,7 +248,7 @@ spark:
 ```
 
 #### Hive Catalog
-Configure Hive Catalog as follows.
+Configure Hive Catalog as follows. Catalog name is also set to `hive` but it can be any name you want.
 ```yaml
 spark:
   sql:
@@ -261,7 +262,7 @@ spark:
 ```
 
 #### Nessie Catalog
-Configure Nessie Catalog as follows.
+Configure Nessie Catalog as follows. Catalog name is also set to `nessie` but it can be any name you want.
 ```yaml
 spark:
   sql:
@@ -276,7 +277,145 @@ spark:
 
 > [!IMPORTANT]
 > AWS S3, Azure Blob Storage and Google Cloud Storage (GCS) are also supported as data storage for Iceberg tables.  
-> Need to configure catalog properties accordingly in `application.yml` or `application.properties` file.
+> Need to have required dependencies in your classpath and configure catalog properties accordingly in `application.yml` or `application.properties` file.
+
+### Iceberg Catalog Configuration with AWS S3 as Data storage
+Along with the catalog configurations, you also need to do following.
+- Configure [AWS Cli](https://aws.amazon.com/cli/) with your AWS credentials and region.
+- Add following dependencies to your `pom.xml`:
+```xml
+<properties>
+    <spring-cloud-aws.version>3.2.1</spring-cloud-aws.version>
+    <awssdk-bundle.version>2.25.70</awssdk-bundle.version>
+</properties>
+
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>io.awspring.cloud</groupId>
+            <artifactId>spring-cloud-aws-dependencies</artifactId>
+            <version>${spring-cloud-aws.version}</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
+
+<dependencies>
+    <dependency>
+        <groupId>io.awspring.cloud</groupId>
+        <artifactId>spring-cloud-aws-starter-s3</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>software.amazon.awssdk</groupId>
+        <artifactId>bundle</artifactId>
+        <version>${awssdk-bundle.version}</version>
+    </dependency>
+</dependencies>
+```
+- Add the following properties to your `application.yml` or `application.properties` file:
+```yaml
+spring:
+  cloud:
+    aws:
+      credentials:
+        access-key: ${AWS_ACCESS_KEY:<Your AWS Access Key>}
+        secret-key: ${AWS_SECRET_KEY:<Your AWS Secret Key>}
+      region:
+        static: ${AWS_REGION:<Your AWS Region>}
+      s3:
+        endpoint: ${AWS_S3_ENDPOINT:https://s3.<Your AWS Region>.amazonaws.com}
+```
+- Update $HIVE_HOME/conf/hive-site.xml with following properties.
+```xml
+    <property>
+        <name>fs.s3a.access.key</name>
+        <value>Your AWS Access Key</value>
+    </property>
+    <property>
+        <name>fs.s3a.secret.key</name>
+        <value>Your AWS Secret Key</value>
+    </property>
+    <property>
+        <name>fs.s3a.endpoint</name>
+        <value>s3.{Your AWS Region}.amazonaws.com</value>
+    </property>
+    <property>
+        <name>fs.s3a.impl</name>
+        <value>org.apache.hadoop.fs.s3a.S3AFileSystem</value>
+    </property>
+```
+
+> [!IMPORTANT]
+> You can see we need to set AWS S3 and Hadoop S3A configurations at multiple places, I couldn't find a way to do it in a single place.
+
+Following are Iceberg Catalog configurations using AWS S3 as Data storage.
+#### Hadoop Catalog
+Configure Hadoop Catalog as follows. Catalog name is also set to `hadoop` but it can be any name you want.
+```yaml
+spark:
+  sql:
+    catalog:
+      hadoop: org.apache.iceberg.spark.SparkCatalog
+      hadoop.type: hadoop
+      hadoop.warehouse: ${CATALOG_WAREHOUSE:s3a://<Your S3 Bucket Name>/warehouse}
+      hadoop.uri: ${CATALOG_URI:hdfs://localhost:9000}
+      hadoop.default-namespace: ${CATALOG_NAMESPACE:ksoot}
+      hadoop.io-impl: org.apache.iceberg.aws.s3.S3FileIO
+      hadoop.hadoop.fs.s3a.access.key: ${AWS_ACCESS_KEY:<Your AWS Access Key>}
+      hadoop.hadoop.fs.s3a.secret.key: ${AWS_SECRET_KEY:<Your AWS Secret Key>}
+      hadoop.hadoop.fs.s3a.endpoint: ${AWS_S3_ENDPOINT:s3.<Your AWS Region>.amazonaws.com}
+      hadoop.hadoop.fs.s3a.impl: org.apache.hadoop.fs.s3a.S3AFileSystem
+      hadoop.hadoop.fs.s3a.path.style.access: true  # For path-style access, useful in some S3-compatible services
+      hadoop.hadoop.fs.s3a.connection.ssl.enabled: false  # Enable SSL
+      hadoop.hadoop.fs.s3a.fast.upload: true  # Enable faster uploads
+```
+
+#### Hive Catalog
+Configure Hive Catalog as follows. Catalog name is also set to `hive` but it can be any name you want.
+```yaml
+spark:
+  sql:
+    catalog:
+      hive: org.apache.iceberg.spark.SparkCatalog
+      hive.type: hive
+      hive.warehouse: ${CATALOG_WAREHOUSE:s3a://<Your S3 Bucket Name>/warehouse}
+      hive.uri: ${CATALOG_URI:thrift://localhost:9083}
+      hive.default-namespace: ${CATALOG_NAMESPACE:ksoot}
+      hive.io-impl: org.apache.iceberg.aws.s3.S3FileIO
+      hive.hadoop.fs.s3a.access.key: ${AWS_ACCESS_KEY:<Your AWS Access Key>}
+      hive.hadoop.fs.s3a.secret.key: ${AWS_SECRET_KEY:<Your AWS Secret Key>}
+      hive.hadoop.fs.s3a.endpoint: ${AWS_S3_ENDPOINT:s3.<Your AWS Region>.amazonaws.com}
+      hive.hadoop.fs.s3a.impl: org.apache.hadoop.fs.s3a.S3AFileSystem
+      hive.hadoop.fs.s3a.path.style.access: true  # For path-style access, useful in some S3-compatible services
+      hive.hadoop.fs.s3a.connection.ssl.enabled: false  # Enable SSL
+      hive.hadoop.fs.s3a.fast.upload: true  # Enable faster uploads
+```
+
+> [!IMPORTANT]
+> Add `aws-java-sdk-bundle-1.12.262.jar`, `hadoop-aws-3.3.4.jar` to folder `$HIVE_HOME/lib`.
+> Versions may vary, so make sure to use compatible versions with your setup.
+
+#### Nessie Catalog
+Configure Nessie Catalog as follows. Catalog name is also set to `nessie` but it can be any name you want.
+```yaml
+spark:
+  sql:
+    catalog:
+      nessie: org.apache.iceberg.spark.SparkCatalog
+      nessie.type: nessie
+      nessie.warehouse: ${CATALOG_WAREHOUSE:s3a://<Your S3 Bucket Name>/warehouse}
+      nessie.uri: ${CATALOG_URI:http://localhost:19120/api/v2}
+      nessie.default-namespace: ${CATALOG_NAMESPACE:ksoot}
+      nessie.io-impl: org.apache.iceberg.aws.s3.S3FileIO
+      nessie.hadoop.fs.s3a.access.key: ${AWS_ACCESS_KEY:<Your AWS Access Key>}
+      nessie.hadoop.fs.s3a.secret.key: ${AWS_SECRET_KEY:<Your AWS Secret Key>}
+      nessie.hadoop.fs.s3a.endpoint: ${AWS_S3_ENDPOINT:s3.<Your AWS Region>.amazonaws.com}
+      nessie.hadoop.fs.s3a.impl: org.apache.hadoop.fs.s3a.S3AFileSystem
+      nessie.hadoop.fs.s3a.path.style.access: true  # For path-style access, useful in some S3-compatible services
+      nessie.hadoop.fs.s3a.connection.ssl.enabled: false  # Enable SSL
+      nessie.hadoop.fs.s3a.fast.upload: true  # Enable faster uploads
+```
 
 ## Override default beans
 It isn't recommended to override default beans as you can always extend them in your application. 

@@ -230,7 +230,7 @@ customerIdDatesDf.show();
 > To support java 8 datetime in Spark, set property `spark.sql.datetime.java8API.enabled` as `true` in `application.yml` or `application.properties`
 
 ### Iceberg Catalog Configuration with Local Hadoop as Data storage
-**For Spark Iceberg integration demo refer to** [**`spring-boot-spark-iceberg`**](https://github.com/officiallysingh/spring-boot-spark-iceberg).  
+**For Spark Iceberg integration demo refer to** [**`spring-boot-spark-iceberg`**](https://github.com/officiallysingh/spring-boot-spark-iceberg). 
 
 Following are Iceberg Catalog configurations using Local Hadoop as Data storage.
 #### Hadoop Catalog
@@ -416,6 +416,10 @@ spark:
       nessie.hadoop.fs.s3a.connection.ssl.enabled: false  # Enable SSL
       nessie.hadoop.fs.s3a.fast.upload: true  # Enable faster uploads
 ```
+
+> [!IMPORTANT]
+> You can also configure multiple catalogs in your Spark application, 
+> for example, you can have both Hadoop and Hive catalogs configured in your application, but choose the one you want to use in your Spark pipeline at runtime.
 
 ## Override default beans
 It isn't recommended to override default beans as you can always extend them in your application. 

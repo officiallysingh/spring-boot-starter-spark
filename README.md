@@ -40,7 +40,7 @@ It specifies the following versions:
 * Provides auto-configured [**`SparkSession`**](https://spark.apache.org/docs/latest/api/java/org/apache/spark/sql/SparkSession.html) bean which can be customized in any manner.
 * Provides auto-configured [**`Iceberg Catalog`**](https://iceberg.apache.org/docs/1.9.0/java-api-quickstart/) supporting `Hadoop`, `Hive` and `Nessie`.
 * Exposes all Spark configurations including Catalog configurations as Spring boot environment properties.
-* Enables auto-completion assistance for Spark configuration properties in Spring boot `yml` and `properties` files in IDEs such as IntelliJ, Eclipse etc. Find details at [**additional-spring-configuration-metadata.json**](src/main/resources/META-INF/additional-spring-configuration-metadata.json)
+* Enables auto-completion assistance for Spark configuration properties in Spring boot `yml` and `properties` files in IDEs such as IntelliJ, Eclipse etc. Find details at [**spring-configuration-metadata.json**](src/main/resources/META-INF/spring-configuration-metadata.json)
   ![IntelliJ Auto Completion](https://github.com/officiallysingh/spring-boot-starter-spark/blob/main/images/IntelliJ%20Auto%20Completion.png)
 
 ## Installation

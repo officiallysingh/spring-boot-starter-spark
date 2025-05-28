@@ -326,7 +326,7 @@ spring:
       s3:
         endpoint: ${AWS_S3_ENDPOINT:https://s3.<Your AWS Region>.amazonaws.com}
 ```
-- Update $HIVE_HOME/conf/hive-site.xml with following properties.
+- Update **$HIVE_HOME/conf/hive-site.xml** with following properties.
 ```xml
     <property>
         <name>fs.s3a.access.key</name>

@@ -73,8 +73,8 @@ Add the following dependency to your `pom.xml`:
 ```
 
 > [!NOTE]
-`spring-boot-starter-spark` jar contains spark core, spark sql and spark mllib dependencies. 
-You can exclude spark mllib if you don't need it.
+`spring-boot-starter-spark` jar contains spark core, spark sql, spark mllib, iceberg and hadoop dependencies. 
+You can exclude any dependency if you don't need it.
 
 **See example usage in a [Spark Spring could task](https://github.com/officiallysingh/spark-try-me)**
 

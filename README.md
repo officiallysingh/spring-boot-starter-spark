@@ -15,28 +15,28 @@ as they are supposed to be provided by containers where the Jobs are deployed su
 But as long as the Spark dependency versions in your application are same as that in container, it does not matter if you have them in `compile` scope.
 
 **The Spring Boot Starter for Spark is a set of convenient dependency descriptors that you can include in your Spring boot application 
-to have all required Spark dependencies and [**`SparkSession`**](https://spark.apache.org/docs/latest/api/java/org/apache/spark/sql/SparkSession.html) bean auto-configured with spark configurations support in spring boot `yml` or `properties` file in your favourite IDE.**
+to have all required Spark dependencies and [**`SparkSession`**](https://spark.apache.org/docs/latest/api/java/org/apache/spark/sql/SparkSession.html) and [**`Iceberg Catalog`**](https://iceberg.apache.org/docs/1.9.0/java-api-quickstart/) beans auto-configured with spark configurations support in spring boot `yml` or `properties` file in your favourite IDE.**
 
 ## Dependency versions
 It specifies the following versions:
 * Java 17
-* Spring Boot 3.4.0
+* Spring Boot 3.4.5
 * Spark 3.5.5
 * Scala 2.13.16
 
 ```xml
 <java.version>17</java.version>
-<spring-boot.version>3.4.0</spring-boot.version>
+<spring-boot.version>3.4.5</spring-boot.version>
 
 <!-- Spark dependencies versions-->
-<scala.version>2.12.18</scala.version>
-<scala.compact.version>2.12</scala.compact.version>
-<spark.version>3.5.3</spark.version>
+<scala.version>2.13.16</scala.version>
+<scala.compact.version>2.13</scala.compact.version>
+<spark.version>3.5.5</spark.version>
 <spark.compact.version>3.5</spark.compact.version>
 ```
 
 ## Features
-* Bundles spark dependencies compatible with Spring boot 3+.   
+* Bundles spark, Iceberg and Hadoop dependencies compatible with Spring boot 3+.   
 * Provides auto-configured [**`SparkSession`**](https://spark.apache.org/docs/latest/api/java/org/apache/spark/sql/SparkSession.html) bean which can be customized in any manner.
 * Provides auto-configured [**`Iceberg Catalog`**](https://iceberg.apache.org/docs/1.9.0/java-api-quickstart/) supporting `Hadoop`, `Hive` and `Nessie`.
 * Exposes all Spark configurations including Catalog configurations as Spring boot environment properties.
@@ -50,7 +50,7 @@ Define the following properties in `pom.xml`:
 ```xml
 <properties>
     <java.version>17</java.version>
-    <spring-boot.version>3.4.0</spring-boot.version>
+    <spring-boot.version>3.4.5</spring-boot.version>
 
     <spring-boot-starter-spark.version>1.2</spring-boot-starter-spark.version>
     <!-- The Following two versions must be specified otherwise you will get exception java.lang.ClassNotFoundException: javax.servlet.http.HttpServlet-->
@@ -277,7 +277,7 @@ spark:
 
 > [!IMPORTANT]
 > AWS S3, Azure Blob Storage and Google Cloud Storage (GCS) are also supported as data storage for Iceberg tables.  
-> Need to have required dependencies in your classpath and configure catalog properties accordingly in `application.yml` or `application.properties` file.
+> You need to have required dependencies in your classpath and configure catalog properties accordingly in `application.yml` or `application.properties` file.
 
 ### Iceberg Catalog Configuration with AWS S3 as Data storage
 Along with the catalog configurations, you also need to do following.
@@ -349,7 +349,7 @@ spring:
 #### Spark Hadoop Configurations
 Each catalog stores its metadata in its own storage such as Postgres (or any other relational database) for Hive, MongoDB for Nessie etc.
 But the table's data is stored in a distributed file system such as HDFS, S3, Azure Blob Storage or Google Cloud Storage (GCS).  
-**So you need to configure Spark Hadoop configurations, either you can configure them globally as follows, which will be used by all Catalogs configured in your application.**  
+**So you need to set Spark Hadoop configurations, either you can configure them globally as follows, which will be used by all Catalogs configured in your application.**  
 
 ```yaml
 spark:
@@ -366,9 +366,10 @@ spark:
         fast.upload: true  # Enable faster uploads
 ```
 
-**Or you can configure them in each catalog configuration as shown in the following sections.**
+**Or you can configure them in each catalog configuration as shown in the following sections, if it's different from the global configurations.**
 
-Following are Iceberg Catalog configurations using AWS S3 as Data storage.
+**Following are Iceberg Catalog configurations using AWS S3 as Data storage.**  
+
 #### Hadoop Catalog with AWS S3
 Configure Hadoop Catalog as follows. Catalog name is also set to `hadoop` but it can be any name you want.
 ```yaml

@@ -346,11 +346,30 @@ spring:
     </property>
 ```
 
-> [!IMPORTANT]
-> You can see we need to set AWS S3 and Hadoop S3A configurations at multiple places, I couldn't find a way to do it in a single place.
+#### Spark Hadoop Configurations
+Each catalog stores its metadata in its own storage such as Postgres (or any other relational database) for Hive, MongoDB for Nessie etc.
+But the table's data is stored in a distributed file system such as HDFS, S3, Azure Blob Storage or Google Cloud Storage (GCS).  
+**So you need to configure Spark Hadoop configurations, either you can configure them globally as follows, which will be used by all Catalogs configured in your application.**  
+
+```yaml
+spark:
+  hadoop:
+    fs:
+      s3a:
+        aws.credentials.provider: "org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider"
+        access.key: ${AWS_ACCESS_KEY:<Your AWS Access Key>}
+        secret.key: ${AWS_SECRET_KEY:<Your AWS Secret Key>}
+        endpoint: ${AWS_S3_ENDPOINT:s3.<Your AWS Region>.amazonaws.com}
+        impl: org.apache.hadoop.fs.s3a.S3AFileSystem
+        path.style.access: true  # For path-style access, useful in some S3-compatible services
+        connection.ssl.enabled: false  # Enable SSL
+        fast.upload: true  # Enable faster uploads
+```
+
+**Or you can configure them in each catalog configuration as shown in the following sections.**
 
 Following are Iceberg Catalog configurations using AWS S3 as Data storage.
-#### Hadoop Catalog
+#### Hadoop Catalog with AWS S3
 Configure Hadoop Catalog as follows. Catalog name is also set to `hadoop` but it can be any name you want.
 ```yaml
 spark:
@@ -371,7 +390,7 @@ spark:
       hadoop.hadoop.fs.s3a.fast.upload: true  # Enable faster uploads
 ```
 
-#### Hive Catalog
+#### Hive Catalog with AWS S3
 Configure Hive Catalog as follows. Catalog name is also set to `hive` but it can be any name you want.
 ```yaml
 spark:
@@ -396,7 +415,7 @@ spark:
 > Add `aws-java-sdk-bundle-1.12.262.jar`, `hadoop-aws-3.3.4.jar` to folder `$HIVE_HOME/lib`.
 > Versions may vary, so make sure to use compatible versions with your setup.
 
-#### Nessie Catalog
+#### Nessie Catalog with AWS S3
 Configure Nessie Catalog as follows. Catalog name is also set to `nessie` but it can be any name you want.
 ```yaml
 spark:
@@ -418,8 +437,9 @@ spark:
 ```
 
 > [!IMPORTANT]
+> You can see we need to set AWS S3 and Hadoop S3A configurations at multiple places, I couldn't find a way to do it in a single place.  
 > You can also configure multiple catalogs in your Spark application, 
-> for example, you can have both Hadoop and Hive catalogs configured in your application, but choose the one you want to use in your Spark pipeline at runtime.
+> for example, you can have both Hadoop and Hive catalogs configured in your application, but choose the one you want to use in your Spark pipelines at runtime.
 
 ## Override default beans
 It isn't recommended to override default beans as you can always extend them in your application. 

@@ -124,6 +124,9 @@ would also work as long as you have the required dependencies in your classpath 
   * If catalog type is `nessie`, it auto-configures [**`NessieCatalog`**](https://iceberg.apache.org/docs/1.9.0/nessie/).
 * [**CatalogProperties**](src/main/java/com/ksoot/spark/springframework/boot/autoconfigure/CatalogProperties.java) is auto-configured with properties specified in `application.yml` or `application.properties` file.
 
+> [!NOTE]
+> `SparkCatalogAutoConfiguration` is enabled only when some catalog configuration is present in `application.yml` or `application.properties`.
+
 **Refer to** [**Apache Hadoop and Hive installation guide**](https://medium.com/@officiallysingh/install-apache-hadoop-and-hive-on-mac-m3-7933e509da90) **for details on how to install Hadoop and Hive**.
 
 ## Customizations
@@ -345,6 +348,7 @@ spring:
         <value>org.apache.hadoop.fs.s3a.S3AFileSystem</value>
     </property>
 ```
+- Add `aws-java-sdk-bundle-1.12.262.jar`, `hadoop-aws-3.3.4.jar` to folder `$HIVE_HOME/lib`. Versions may vary, so make sure to use compatible versions with your setup.
 
 #### Spark Hadoop Configurations
 Each catalog stores its metadata in its own storage such as Postgres (or any other relational database) for Hive, MongoDB for Nessie etc.
@@ -411,10 +415,6 @@ spark:
       hive.hadoop.fs.s3a.connection.ssl.enabled: false  # Enable SSL
       hive.hadoop.fs.s3a.fast.upload: true  # Enable faster uploads
 ```
-
-> [!IMPORTANT]
-> Add `aws-java-sdk-bundle-1.12.262.jar`, `hadoop-aws-3.3.4.jar` to folder `$HIVE_HOME/lib`.
-> Versions may vary, so make sure to use compatible versions with your setup.
 
 #### Nessie Catalog with AWS S3
 Configure Nessie Catalog as follows. Catalog name is also set to `nessie` but it can be any name you want.

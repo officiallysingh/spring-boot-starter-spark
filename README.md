@@ -516,3 +516,7 @@ Please give me a :star: and a :clap: on [**medium.com**](https://officiallysingh
 * To know about Spark Refer to [**Spark Documentation**](https://spark.apache.org/docs/latest/).
 * Find all Spark Configurations details at [**Spark Configuration Documentation**](https://spark.apache.org/docs/latest/configuration.html)
 * [**How to create new Spring boot starter**](https://nortal.com/insights/starters-connecting-infrastructure)
+* [Apache Iceberg](https://iceberg.apache.org/docs/nightly/)
+* [Apache Iceberg Spark Quickstart](https://iceberg.apache.org/docs/1.9.0/java-api-quickstart/)
+* [Apache Hadoop](https://hadoop.apache.org/)
+* [Apache Hive](https://hive.apache.org/)

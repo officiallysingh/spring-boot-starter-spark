@@ -316,19 +316,6 @@ Along with the catalog configurations, you also need to do following.
     </dependency>
 </dependencies>
 ```
-- Add the following properties to your `application.yml` or `application.properties` file:
-```yaml
-spring:
-  cloud:
-    aws:
-      credentials:
-        access-key: ${AWS_ACCESS_KEY:<Your AWS Access Key>}
-        secret-key: ${AWS_SECRET_KEY:<Your AWS Secret Key>}
-      region:
-        static: ${AWS_REGION:<Your AWS Region>}
-      s3:
-        endpoint: ${AWS_S3_ENDPOINT:https://s3.<Your AWS Region>.amazonaws.com}
-```
 - Update **$HIVE_HOME/conf/hive-site.xml** with following properties.
 ```xml
     <property>
@@ -349,8 +336,20 @@ spring:
     </property>
 ```
 - Add `aws-java-sdk-bundle-1.12.262.jar`, `hadoop-aws-3.3.4.jar` to folder `$HIVE_HOME/lib`. Versions may vary, so make sure to use compatible versions with your setup.
-
-#### Spark Hadoop Configurations
+- Add the following properties to your `application.yml` or `application.properties` file:
+```yaml
+spring:
+  cloud:
+    aws:
+      credentials:
+        access-key: ${AWS_ACCESS_KEY:<Your AWS Access Key>}
+        secret-key: ${AWS_SECRET_KEY:<Your AWS Secret Key>}
+      region:
+        static: ${AWS_REGION:<Your AWS Region>}
+      s3:
+        endpoint: ${AWS_S3_ENDPOINT:https://s3.<Your AWS Region>.amazonaws.com}
+```
+- **Spark Hadoop Configurations**
 Each catalog stores its metadata in its own storage such as Postgres (or any other relational database) for Hive, MongoDB for Nessie etc.
 But the table's data is stored in a distributed file system such as HDFS, S3, Azure Blob Storage or Google Cloud Storage (GCS).  
 **So you need to set Spark Hadoop configurations, either you can configure them globally as follows, which will be used by all Catalogs configured in your application.**  

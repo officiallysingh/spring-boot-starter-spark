@@ -44,7 +44,7 @@ It specifies the following versions:
   ![IntelliJ Auto Completion](https://github.com/officiallysingh/spring-boot-starter-spark/blob/main/images/IntelliJ%20Auto%20Completion.png)
 
 ## Installation
-> **Current version: 1.2** Refer to [Release notes](https://github.com/officiallysingh/spring-boot-starter-spark/releases) while upgrading.
+> **Current version: 1.3** Refer to [Release notes](https://github.com/officiallysingh/spring-boot-starter-spark/releases) while upgrading.
 
 Define the following properties in `pom.xml`:
 ```xml

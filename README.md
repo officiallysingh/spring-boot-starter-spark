@@ -319,12 +319,8 @@ Along with the catalog configurations, you also need to do following.
 - Update **$HIVE_HOME/conf/hive-site.xml** with following properties.
 ```xml
     <property>
-        <name>fs.s3a.access.key</name>
-        <value>Your AWS Access Key</value>
-    </property>
-    <property>
-        <name>fs.s3a.secret.key</name>
-        <value>Your AWS Secret Key</value>
+        <name>fs.s3a.aws.credentials.provider</name>
+        <value>com.amazonaws.auth.DefaultAWSCredentialsProviderChain</value>
     </property>
     <property>
         <name>fs.s3a.endpoint</name>

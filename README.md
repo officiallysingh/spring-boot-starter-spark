@@ -316,7 +316,8 @@ Along with the catalog configurations, you also need to do following.
     </dependency>
 </dependencies>
 ```
-- Update **$HIVE_HOME/conf/hive-site.xml** with following properties.
+- Update **$HIVE_HOME/conf/hive-site.xml** with following properties. It will take AWS credetials from AWS CLI configuration.
+  Replace `{Your AWS Region}` with your actual AWS region, e.g. `ap-south-1` etc.
 ```xml
     <property>
         <name>fs.s3a.aws.credentials.provider</name>

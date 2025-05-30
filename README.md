@@ -319,18 +319,18 @@ Along with the catalog configurations, you also need to do following.
 - Update **$HIVE_HOME/conf/hive-site.xml** with following properties. It will take AWS credetials from AWS CLI configuration.
   Replace `{Your AWS Region}` with your actual AWS region, e.g. `ap-south-1` etc.
 ```xml
-    <property>
-        <name>fs.s3a.aws.credentials.provider</name>
-        <value>com.amazonaws.auth.DefaultAWSCredentialsProviderChain</value>
-    </property>
-    <property>
-        <name>fs.s3a.endpoint</name>
-        <value>s3.{Your AWS Region}.amazonaws.com</value>
-    </property>
-    <property>
-        <name>fs.s3a.impl</name>
-        <value>org.apache.hadoop.fs.s3a.S3AFileSystem</value>
-    </property>
+<property>
+    <name>fs.s3a.aws.credentials.provider</name>
+    <value>com.amazonaws.auth.DefaultAWSCredentialsProviderChain</value>
+</property>
+<property>
+    <name>fs.s3a.endpoint</name>
+    <value>s3.{Your AWS Region}.amazonaws.com</value>
+</property>
+<property>
+    <name>fs.s3a.impl</name>
+    <value>org.apache.hadoop.fs.s3a.S3AFileSystem</value>
+</property>
 ```
 - Add `aws-java-sdk-bundle-1.12.262.jar`, `hadoop-aws-3.3.4.jar` and `postgresql-42.7.4.jar` to folder `$HIVE_HOME/lib`. Versions may vary, so make sure to use compatible versions with your setup.
 - Add the following properties to your `application.yml` or `application.properties` file:
@@ -509,11 +509,13 @@ Open source [**The MIT License**](http://www.opensource.org/licenses/mit-license
 Please give me a :star: and a :clap: on [**medium.com**](https://officiallysingh.medium.com/spark-spring-boot-starter-e206def765b9) if you find it helpful.
 
 ## References
-* To know about Spark Refer to [**Spark Documentation**](https://spark.apache.org/docs/latest/).
-* Find all Spark Configurations details at [**Spark Configuration Documentation**](https://spark.apache.org/docs/latest/configuration.html)
-* [**How to create new Spring boot starter**](https://nortal.com/insights/starters-connecting-infrastructure)
-* [Apache Iceberg](https://iceberg.apache.org/docs/nightly/)
-* [Apache Iceberg Spark Quickstart](https://iceberg.apache.org/docs/1.9.0/java-api-quickstart/)
-* [Apache Hadoop](https://hadoop.apache.org/)
-* [Apache Hive](https://hive.apache.org/)
-* [Nessie](https://projectnessie.org/iceberg/iceberg/)
+- [Apache Hadoop and Hive installation guide](https://medium.com/@officiallysingh/install-apache-hadoop-and-hive-on-mac-m3-7933e509da90) for details on how to install Hadoop and Hive.
+- Demo [Spark Spring could task](https://github.com/officiallysingh/spark-try-me) and [**`spring-boot-spark-iceberg`**](https://github.com/officiallysingh/spring-boot-spark-iceberg)
+- To know about Spark Refer to [**Spark Documentation**](https://spark.apache.org/docs/latest/).
+- Find all Spark Configurations details at [**Spark Configuration Documentation**](https://spark.apache.org/docs/latest/configuration.html)
+- [**How to create new Spring boot starter**](https://nortal.com/insights/starters-connecting-infrastructure)
+- [Apache Iceberg](https://iceberg.apache.org/docs/nightly/)
+- [Apache Iceberg Spark Quickstart](https://iceberg.apache.org/docs/1.9.0/java-api-quickstart/)
+- [Apache Hadoop](https://hadoop.apache.org/)
+- [Apache Hive](https://hive.apache.org/)
+- [Nessie](https://projectnessie.org/iceberg/iceberg/)

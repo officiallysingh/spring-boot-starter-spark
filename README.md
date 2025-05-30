@@ -519,3 +519,4 @@ Please give me a :star: and a :clap: on [**medium.com**](https://officiallysingh
 * [Apache Iceberg Spark Quickstart](https://iceberg.apache.org/docs/1.9.0/java-api-quickstart/)
 * [Apache Hadoop](https://hadoop.apache.org/)
 * [Apache Hive](https://hive.apache.org/)
+* [Nessie](https://projectnessie.org/iceberg/iceberg/)

@@ -52,7 +52,7 @@ Define the following properties in `pom.xml`:
     <java.version>17</java.version>
     <spring-boot.version>3.4.5</spring-boot.version>
 
-    <spring-boot-starter-spark.version>1.2</spring-boot-starter-spark.version>
+    <spring-boot-starter-spark.version>1.3</spring-boot-starter-spark.version>
     <!-- The Following two versions must be specified otherwise you will get exception java.lang.ClassNotFoundException: javax.servlet.http.HttpServlet-->
     <jakarta-servlet.version>4.0.3</jakarta-servlet.version>
     <jersey.version>2.36</jersey.version>
@@ -61,7 +61,7 @@ Define the following properties in `pom.xml`:
 
 > [!IMPORTANT]
 Spring boot parent pom provides `jakarta-servlet.version` and `jersey.version` versions.
-These must be overridden in your pom as mentioned above otherwise you will get exception java.lang.ClassNotFoundException: javax.servlet.http.HttpServlet.
+These must be overridden in your pom as mentioned above, otherwise you will get exception java.lang.ClassNotFoundException: javax.servlet.http.HttpServlet.
 
 Add the following dependency to your `pom.xml`:
 ```xml
@@ -335,7 +335,7 @@ Along with the catalog configurations, you also need to do following.
         <value>org.apache.hadoop.fs.s3a.S3AFileSystem</value>
     </property>
 ```
-- Add `aws-java-sdk-bundle-1.12.262.jar`, `hadoop-aws-3.3.4.jar` to folder `$HIVE_HOME/lib`. Versions may vary, so make sure to use compatible versions with your setup.
+- Add `aws-java-sdk-bundle-1.12.262.jar`, `hadoop-aws-3.3.4.jar` and `postgresql-42.7.4.jar` to folder `$HIVE_HOME/lib`. Versions may vary, so make sure to use compatible versions with your setup.
 - Add the following properties to your `application.yml` or `application.properties` file:
 ```yaml
 spring:

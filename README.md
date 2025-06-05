@@ -1,6 +1,7 @@
 # Spring Boot Starter Spark
 
 [![Java](https://img.shields.io/badge/java-17-blue.svg)](https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html)
+[![Scala](https://img.shields.io/badge/scala-2.13.16-blue.svg)](https://www.scala-lang.org/)
 [![Spring Boot](https://img.shields.io/badge/spring_boot-3.4.5-blue.svg)](https://spring.io/projects/spring-boot)
 [![Apache Spark](https://img.shields.io/badge/spark-3.5.5-blue.svg)](https://spark.apache.org/)
 [![Maven](https://img.shields.io/badge/maven-3.9.5-blue.svg)](https://maven.apache.org/)

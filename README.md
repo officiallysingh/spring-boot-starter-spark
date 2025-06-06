@@ -378,6 +378,10 @@ spark:
 
 **Following are Iceberg Catalog configurations using AWS S3 as Data storage.**  
 
+> [!IMPORTANT]
+> Catalog Hadoop fs configurations are only required if they are different from the spark global Hadoop fs configurations.
+> Otherwise you can skip them.
+
 #### Hadoop Catalog with AWS S3
 Configure Hadoop Catalog as follows. Catalog name is also set to `hadoop` but it can be any name you want.
 ```yaml
